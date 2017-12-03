@@ -1,0 +1,16 @@
+FROM ruby:2.3.5
+
+MAINTAINER Jindrich Skupa <jindrich.skupa@gmail.com>
+
+RUN RUN \
+  apt-get update && \
+  apt-get install -y \
+  wget gnupg apt-transport-https && \
+  echo "deb https://deb.nodesource.com/node_8.x jessie main" > /etc/apt/sources.list.d/nodesource.list && \
+  echo "deb-src https://deb.nodesource.com/node_8.x jessie main" >> /etc/apt/sources.list.d/nodesource.list && \
+  wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+  apt-get install -y nodejs && \
+  npm install -g phantomjs-prebuilt && \
+  apt-get autoremove -y && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists
